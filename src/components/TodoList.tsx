@@ -6,11 +6,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
+import { ListInput } from './ListInput';
 
 
 export const TodoList = () => {
   const [checked, setChecked] = React.useState<readonly number[]>([]);
-  const [listItems] = React.useState<readonly number[]>([0, 1, 2, 3,5,6,7,8,9,9,9,9,9,9,9]);
+  const [listItems] = React.useState<readonly number[]>([1, 2, 3,5,6,7,8,9,9,9,9,9,9,9]);
 
 
   const handleToggle = (value: number) => () => {
@@ -49,7 +50,7 @@ export const TodoList = () => {
                   }}
                 />
               </ListItemIcon>
-              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+               <ListInput id={labelId}/>
             </ListItemButton>
           );
         })}
