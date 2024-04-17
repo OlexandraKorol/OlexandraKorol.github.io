@@ -10,7 +10,7 @@ import Paper from '@mui/material/Paper';
 
 export const TodoList = () => {
   const [checked, setChecked] = React.useState<readonly number[]>([]);
-  const [listItems] = React.useState<readonly number[]>([0, 1, 2, 3]);
+  const [listItems] = React.useState<readonly number[]>([0, 1, 2, 3,5,6,7,8,9,9,9,9,9,9,9]);
 
 
   const handleToggle = (value: number) => () => {
@@ -27,8 +27,8 @@ export const TodoList = () => {
   };
 
   const customList = (items: readonly number[]) => (
-    <Paper sx={{ width: 200, height: 230, overflow: 'auto' }}>
-      <List dense component="div" role="list">
+    <Paper sx={{ width: 400, overflow: 'auto' }}>
+      <List component="div" role="list" >
         {items.map((value: number) => {
           const labelId = `transfer-list-item-${value}-label`;
 
@@ -43,6 +43,7 @@ export const TodoList = () => {
                   checked={checked.indexOf(value) !== -1}
                   tabIndex={-1}
                   disableRipple
+                  color="default"
                   inputProps={{
                     'aria-labelledby': labelId,
                   }}
@@ -57,7 +58,7 @@ export const TodoList = () => {
   );
 
   return (
-    <Grid container spacing={2} justifyContent="center" alignItems="center">
+    <Grid container justifyContent="center" alignItems="center">
       <Grid item>{customList(listItems)}</Grid>
     </Grid>
   );
