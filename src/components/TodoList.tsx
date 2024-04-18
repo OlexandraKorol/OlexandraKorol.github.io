@@ -8,47 +8,36 @@ import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
 import { ListInput } from './ListInput';
 import { useTodoContext } from './useContext/TodoContext';
+
+import { ListItem } from './ListItem';
 import { log } from 'console';
 
+interface ListItemProps {
+   id: number; 
+   text: string; 
+   checked: boolean 
+}
 
 export const TodoList = () => {
-  const { checked, addChecked, removeChecked, listItems, createNewTodo } = useTodoContext();
+  const { updateCheckBox, listItems } = useTodoContext();
 
-  console.log(listItems)
-
+  console.log({listItems})
   const handleToggle = (value: number) => () => {
-    if (checked.includes(value)) {
-      removeChecked(value);
-    } else {
-      addChecked(value);
-    }
+    updateCheckBox(value)
   };
 
-  const customList = (items: readonly number[]) => (
+  const customList = (listItems: ListItemProps[]) => (
     <Paper sx={{ width: 400, overflow: 'auto' }}>
       <List component="div" role="list" >
-        {items.map((value: number) => {
-          const labelId = `transfer-list-item-${value}-label`;
+        {listItems.map((value: {id: number, text: string, checked: boolean }) => {
 
           return (
-            <ListItemButton
-              key={value}
-              role="listitem"
-              onClick={handleToggle(value)}
-            >
-              <ListItemIcon>
-                <Checkbox
-                  checked={checked.indexOf(value) !== -1}
-                  tabIndex={-1}
-                  disableRipple
-                  color="default"
-                  inputProps={{
-                    'aria-labelledby': labelId,
-                  }}
-                />
-              </ListItemIcon>
-               <ListInput id={labelId}/>
-            </ListItemButton>
+            <ListItem
+              value={value}
+              handleToggle={handleToggle}
+              checked={value.checked} 
+              labelId={`${value.id}`} 
+             />
           );
         })}
       </List>
@@ -56,10 +45,9 @@ export const TodoList = () => {
   );
 
   return (
-     (<Grid container justifyContent="center" alignItems="center">
-       {listItems.length !== 0 && ( <Grid item>{customList(listItems)}</Grid>)}
+      <Grid container justifyContent="center" alignItems="center">
+        {listItems.length !== 0 && ( <Grid item>{customList(listItems)}</Grid>)}
       </Grid>
-    )
   );
 }
 

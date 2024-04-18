@@ -1,33 +1,34 @@
 import { Checkbox, ListItemButton, ListItemIcon } from "@mui/material"
 import { ListInput } from "./ListInput"
 
+
 interface ListFieldProps {
-  value: number,
+  value: {id: number, text: string, checked: boolean },
   handleToggle: (value: number) => () => void,
-  checked: number[],
+  checked: boolean,
   labelId: string,
 }
 
-export const ListField = ({value, handleToggle, checked, labelId}: ListFieldProps) => {
+
+export const ListItem = ({value}: ListFieldProps) => {
+
+  const {id, text, checked} = value
+
   return (
       <ListItemButton
-      key={value}
+      key={id}
       role="listitem"
-      onClick={handleToggle(value)}
+      // onClick={handleToggle(value)}
     >
       <ListItemIcon>
         <Checkbox
-          checked={checked.indexOf(value) !== -1}
+          checked={checked}
           tabIndex={-1}
           disableRipple
           color="default"
-          inputProps={{
-            'aria-labelledby': labelId,
-          }}
         />
       </ListItemIcon>
-      <ListInput id={labelId}/>
+      <ListInput id={`${id}`} value={text}/>
     </ListItemButton>
-
   )
 }

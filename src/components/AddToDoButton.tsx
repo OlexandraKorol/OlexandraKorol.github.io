@@ -1,28 +1,35 @@
-import { Button } from "@mui/material"
-import { useTodoContext } from "./useContext/TodoContext";
+import { Button } from "@mui/material";
 import styled from "@emotion/styled";
+import { useTodoContext } from "./useContext/TodoContext";
+import { useState } from "react";
 
 export const AddToDoButton = () => {
-  const { createNewTodo } = useTodoContext();
+  const { createTodo, userText, listItems, setUserText } = useTodoContext();
+  const [nextId, setNextId] = useState(listItems.length + 1); 
 
-  const handleAddTodo = () => {
-    createNewTodo(789); 
+  const handleClick = () => {
+    if (userText) {
+      const newId = nextId; 
+      setNextId(prevId => prevId + 1); 
+      createTodo(userText, newId); 
+      setUserText("")
+    }
   };
 
   return (
     <CustomButton>
-        <Button 
-          variant="outlined" 
-          size="small" 
-          onClick={() => createNewTodo}
-          color="inherit"
-        >
-            Click to add
-        </Button>
+      <Button 
+        variant="outlined" 
+        size="small" 
+        onClick={() => handleClick()}
+        color="inherit"
+      >
+        Click to add
+      </Button>
     </CustomButton>
-  )
-}
+  );
+};
 
 const CustomButton = styled.div`
-  padding: 40px
-`
+  padding: 10px;
+`;

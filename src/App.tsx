@@ -1,8 +1,9 @@
 import './App.css';
 import {TodoList} from './components/TodoList';
 import styled from '@emotion/styled';
-import { TodoProvider, useTodoContext } from './components/useContext/TodoContext';
+import { TodoProvider, } from './components/useContext/TodoContext';
 import { AddToDoButton } from './components/AddToDoButton';
+import { StartField } from './components/StartField';
 
 const App: React.FC = () => {
  
@@ -11,8 +12,11 @@ const App: React.FC = () => {
       <Wrapper>
         <Title> Your TODO list! </Title>
           <Subtitle> Optimise your time </Subtitle>
-            <TodoList />
-        <AddToDoButton />
+
+          <StartField />
+          <AddToDoButton />
+
+          <TodoList />
       </Wrapper>
     </TodoProvider>
   );
