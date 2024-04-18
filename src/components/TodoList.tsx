@@ -7,24 +7,21 @@ import ListItemText from '@mui/material/ListItemText';
 import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
 import { ListInput } from './ListInput';
+import { useTodoContext } from './useContext/TodoContext';
+import { log } from 'console';
 
 
 export const TodoList = () => {
-  const [checked, setChecked] = React.useState<readonly number[]>([]);
-  const [listItems] = React.useState<readonly number[]>([1, 2, 3,5,6,7,8,9,9,9,9,9,9,9]);
+  const { checked, addChecked, removeChecked, listItems, createNewTodo } = useTodoContext();
 
+  console.log(listItems)
 
   const handleToggle = (value: number) => () => {
-    const currentIndex = checked.indexOf(value);
-    const newChecked = [...checked];
-
-    if (currentIndex === -1) {
-      newChecked.push(value);
+    if (checked.includes(value)) {
+      removeChecked(value);
     } else {
-      newChecked.splice(currentIndex, 1);
+      addChecked(value);
     }
-
-    setChecked(newChecked);
   };
 
   const customList = (items: readonly number[]) => (
@@ -59,9 +56,10 @@ export const TodoList = () => {
   );
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item>{customList(listItems)}</Grid>
-    </Grid>
+     (<Grid container justifyContent="center" alignItems="center">
+       {listItems.length !== 0 && ( <Grid item>{customList(listItems)}</Grid>)}
+      </Grid>
+    )
   );
 }
 

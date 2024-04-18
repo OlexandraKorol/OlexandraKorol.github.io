@@ -1,21 +1,31 @@
 import './App.css';
 import {TodoList} from './components/TodoList';
 import styled from '@emotion/styled';
+import { TodoProvider, useTodoContext } from './components/useContext/TodoContext';
+import { AddToDoButton } from './components/AddToDoButton';
 
-function App() {
+const App: React.FC = () => {
+ 
   return (
+    <TodoProvider>
       <Wrapper>
         <Title> Your TODO list! </Title>
-        <Subtitle> Optimise your time </Subtitle>
-        <TodoList />
+          <Subtitle> Optimise your time </Subtitle>
+            <TodoList />
+        <AddToDoButton />
       </Wrapper>
-    )
-  }
+    </TodoProvider>
+  );
+};
 
 const Wrapper = styled.div`
   width: 100%;
   height: max-content;
-  padding: 40px
+  padding: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 `;
 
 const Title = styled.h1`
