@@ -1,5 +1,5 @@
 
-# Starting an TODO app 
+# Starting a TODO app 
 
 ## Prerequisites
 
