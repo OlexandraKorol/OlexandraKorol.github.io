@@ -11,7 +11,9 @@ interface TodoContextType {
     id: number;
     text: string;
     checked: boolean;
-}[]>) => void
+  }[]>) => void
+  errors: string
+  setErrors: (value: React.SetStateAction<string>) => void
 }
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -19,10 +21,7 @@ const TodoContext = createContext<TodoContextType | undefined>(undefined);
 export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [userText, setUserText] = useState<string>('');
   const [listItems, setListItems] = useState<{ id: number; text: string; checked: boolean }[]>([]);
-
-  useEffect(() => {
-    console.log("List items changed:", listItems);
-  }, [listItems]);
+  const [errors, setErrors] = useState<string>("")
   
   const createTodo = (text: string, id: number) => {
     const newTodo = {
@@ -62,7 +61,9 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
       listItems, 
       updateCheckBox, 
       createTodo, 
-      setListItems 
+      setListItems,
+      errors,
+      setErrors,
       }}
     >
       {children}

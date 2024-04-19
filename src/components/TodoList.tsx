@@ -19,7 +19,6 @@ export const TodoList = () => {
     if (!result || !result.destination) return;
     const { source, destination } = result;
     const draggedItem = listItems.splice(source.index, 1)[0];
-    console.log(draggedItem)
     listItems.splice(destination.index, 0, draggedItem);
 
     setListItems(listItems);
