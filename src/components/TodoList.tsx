@@ -18,14 +18,13 @@ export const TodoList = () => {
   const handleDragEnd = (result: any) => {
     if (!result || !result.destination) return;
     const { source, destination } = result;
-    const newListItems = [...listItems];
+    const draggedItem = listItems.splice(source.index, 1)[0];
+    console.log(draggedItem)
+    listItems.splice(destination.index, 0, draggedItem);
 
-    const draggedItem = newListItems.splice(source.index, 1)[0];
-    newListItems.splice(destination.index, 0, draggedItem);
+    setListItems(listItems);
 
-    setListItems(newListItems);
-
-    newListItems.forEach((item) => {
+    listItems.forEach((item) => {
       updateToDo(item.text, item.id);
     });
   };
