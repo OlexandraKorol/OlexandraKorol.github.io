@@ -13,41 +13,34 @@ interface ListItemProps {
 }
 
 export const TodoList = () => {
-  const { setListItems, listItems} = useTodoContext()
+  const { setListItems, listItems, updateToDo } = useTodoContext();
 
   const handleDragEnd = (result: any) => {
     if (!result || !result.destination) return;
-  
     const { source, destination } = result;
     const newListItems = [...listItems];
-  
-    const draggedItem = newListItems[source.index];
-  
-    newListItems.splice(source.index, 1);
-  
+
+    const draggedItem = newListItems.splice(source.index, 1)[0];
     newListItems.splice(destination.index, 0, draggedItem);
-  
+
     setListItems(newListItems);
+
+    newListItems.forEach((item) => {
+      updateToDo(item.text, item.id);
+    });
   };
 
-  console.log(listItems)
-  const firstId = listItems.findIndex((item) => item.id)
+  const renderListItem = (item: ListItemProps, index: number) => (
+    <ListItem key={item.id} value={item} index={index} />
+  );
 
-  const customList = (listItems: ListItemProps[]) => (
+  const renderCustomList = (listItems: ListItemProps[]) => (
     <Paper sx={{ width: 400, overflow: 'auto' }}>
-      <Droppable droppableId={`${firstId}`}>
+      <Droppable droppableId="todo-list">
         {(provided) => (
           <div ref={provided.innerRef} {...provided.droppableProps}>
             <List component="div" role="list">
-            {listItems.map((value:
-                { id: number; 
-                  text: string; 
-                  checked: boolean 
-                }) => (
-                <ListItem 
-                  value={value}
-                  />
-              ))}
+              {listItems.map((item, index) => renderListItem(item, index))}
             </List>
             {provided.placeholder}
           </div>
@@ -59,12 +52,10 @@ export const TodoList = () => {
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Grid container justifyContent="center" alignItems="center">
-        {listItems.length !== 0 && 
-        <Grid item>{customList(listItems)}</Grid>
-        }
+        {listItems.length !== 0 && (
+          <Grid item>{renderCustomList(listItems)}</Grid>
+        )}
       </Grid>
     </DragDropContext>
   );
 };
-
-

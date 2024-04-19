@@ -9,12 +9,11 @@ export const AddToDoButton = () => {
 
   const handleClick = () => {
     if (userText) {
-      const newId = nextId; 
+      createTodo(userText, nextId); 
       setNextId(prevId => prevId + 1); 
-      createTodo(userText, newId); 
-      setUserText("")
+      setUserText("");
     }
-  };
+};
 
   return (
     <CustomButton>

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
 
 interface TodoContextType {
   updateToDo: (text: string, id: number) => void;
@@ -20,6 +20,10 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [userText, setUserText] = useState<string>('');
   const [listItems, setListItems] = useState<{ id: number; text: string; checked: boolean }[]>([]);
 
+  useEffect(() => {
+    console.log("List items changed:", listItems);
+  }, [listItems]);
+  
   const createTodo = (text: string, id: number) => {
     const newTodo = {
       id,
@@ -51,7 +55,16 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
   
 
   return (
-    <TodoContext.Provider value={{ updateToDo, userText, setUserText, listItems, updateCheckBox, createTodo, setListItems }}>
+    <TodoContext.Provider value={{ 
+      updateToDo, 
+      userText, 
+      setUserText, 
+      listItems, 
+      updateCheckBox, 
+      createTodo, 
+      setListItems 
+      }}
+    >
       {children}
     </TodoContext.Provider>
   );

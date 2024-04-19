@@ -5,13 +5,14 @@ import { Draggable } from "react-beautiful-dnd"
 
 interface ListFieldProps {
   value: {id: number, text: string, checked: boolean },
+  index : number
 }
 
-export const ListItem = ({ value }: ListFieldProps) => {
+export const ListItem = ({ value, index }: ListFieldProps) => {
   const { updateCheckBox } = useTodoContext();
 
   return (
-    <Draggable draggableId={`${value.id}`} index={value.id}>
+    <Draggable draggableId={`${value.id}`} index={index}>
       {(provided) => (
         <div
           ref={provided.innerRef}
@@ -23,7 +24,6 @@ export const ListItem = ({ value }: ListFieldProps) => {
               <Checkbox
                 checked={value.checked}
                 tabIndex={-1}
-                disableRipple
                 color="default"
                 onClick={() => updateCheckBox(value.id)}
               />
