@@ -25,7 +25,7 @@ export const AddToDoButton = () => {
       <Button 
         variant="outlined" 
         size="small" 
-        onClick={handleClick} // Simplified onClick
+        onClick={handleClick}
         color="inherit"
       >
         Click to add
