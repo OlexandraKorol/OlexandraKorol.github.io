@@ -34,7 +34,7 @@ If there is no version, follow this steps:
    Clone the existing React project repository to your local machine using Git. Navigate to the directory where you want to store the project and run the following command:
 
    ```bash
-   git clone git@github.com:OlexandraKorol/To-Do-List-Test-Task.git
+      https://github.com/OlexandraKorol/OlexandraKorol.github.io.git
    ```
 
 
