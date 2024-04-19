@@ -1,64 +1,54 @@
 
 # Starting a TODO app 
 
-## Prerequisites
+### Prerequisites
 
 Before you begin, ensure you have the following installed on your system:
 
-- Node.js (including npm, the Node package manager)
-- A text editor of your choice (e.g., Visual Studio Code, Atom, Sublime Text)
+- **Node.js**: Including npm, the Node package manager.
+- **A text editor of your choice**: (e.g., Visual Studio Code, Atom, Sublime Text).
 
-To check type in terminal:
+To check if Node.js and npm are installed, type the following commands in your terminal:
 
-  ```
-  node -v
-  ```
+```bash
+node -v
+npm -v
+```
 
-than
+If there is no version displayed, follow these steps:
 
-  ```
-  npm -v
-  ```
+1. Visit the [Node.js website](https://nodejs.org/).
+2. Install Node.js and npm:
+   - Download the appropriate installer for your operating system.
 
-If there is no version, follow this steps:
+### Steps
 
-- Visit the Node.js website.
-- Install Node.js and npm:
-- Download the appropriate installer for your operating system.
+#### Clone the Project Repository
 
-
-## Steps
-
-1. **Clone the Project Repository**
-
-   Clone the existing React project repository to your local machine using Git. Navigate to the directory where you want to store the project and run the following command:
+Clone the existing React project repository to your local machine using Git. Navigate to the directory where you want to store the project and run the following command:
 
    ```bash
       https://github.com/OlexandraKorol/TODO-App-Test-Task.git
    ```
 
+#### Open the Repository
 
-2. **Open the repository**
+Once the repository is cloned, open it in your text editor.
 
-   Once the repository is cloned, open it in the text editor
+#### Install Dependencies
 
+Use npm to install the project dependencies. Run the following command:
 
-3. **Install Dependencies**
+```bash
+npm install
+```
 
-   Use npm to install the project dependencies. Run the following command:
+This command will install all the required packages and dependencies specified in the `package.json` file.
 
-   ```bash
-   npm install
-   ```
+#### Start the Development Server
 
-   This command will install all the required packages and dependencies specified in the `package.json` file.
+To start the development server and run the React app locally, run:
 
-4. **Start the Development Server**
-
-   To start the development server and run the React app locally, run:
-
-   ```bash
-   npm start
-   ```
-
-   This command will launch your default web browser and open the React app. You can now view and interact with the app locally.
+```bash
+npm start
+```
