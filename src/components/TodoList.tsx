@@ -1,12 +1,6 @@
-import * as React from 'react';
 import Grid from '@mui/material/Grid';
 import List from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import Checkbox from '@mui/material/Checkbox';
 import Paper from '@mui/material/Paper';
-import { ListInput } from './ListInput';
 import { useTodoContext } from './useContext/TodoContext';
 
 import { ListItem } from './ListItem';
@@ -21,35 +15,37 @@ interface ListItemProps {
 export const TodoList = () => {
   const { setListItems, listItems} = useTodoContext()
 
-  const handleDragEnd = (result:any) => {
-    if (!result.destination) return;
-
-    const items = Array.from(listItems);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setListItems(items);
+  const handleDragEnd = (result: any) => {
+    if (!result || !result.destination) return;
+  
+    const { source, destination } = result;
+    const newListItems = [...listItems];
+  
+    const draggedItem = newListItems[source.index];
+  
+    newListItems.splice(source.index, 1);
+  
+    newListItems.splice(destination.index, 0, draggedItem);
+  
+    setListItems(newListItems);
   };
 
-
-  const firstId = listItems.length > 0 ? listItems[0].id : null;
+  console.log(listItems)
+  const firstId = listItems.findIndex((item) => item.id)
 
   const customList = (listItems: ListItemProps[]) => (
-    <Paper sx={{ width: 400, overflow: 'auto' }} key={`${firstId}`}>
-      <Droppable droppableId="ToDoId">
+    <Paper sx={{ width: 400, overflow: 'auto' }}>
+      <Droppable droppableId={`${firstId}`}>
         {(provided) => (
-          <div ref={provided.innerRef} 
-            {...provided.droppableProps}>
+          <div ref={provided.innerRef} {...provided.droppableProps}>
             <List component="div" role="list">
-              {listItems.map((value: 
+            {listItems.map((value:
                 { id: number; 
                   text: string; 
                   checked: boolean 
                 }) => (
                 <ListItem 
-                  value={value} 
-                  checked={value.checked} 
-                  labelId={`${value.id}`} 
+                  value={value}
                   />
               ))}
             </List>

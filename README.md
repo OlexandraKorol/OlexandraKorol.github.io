@@ -22,8 +22,8 @@ than
 
 If there is no version, follow this steps:
 
-- Install Node.js and npm:
 - Visit the Node.js website.
+- Install Node.js and npm:
 - Download the appropriate installer for your operating system.
 
 

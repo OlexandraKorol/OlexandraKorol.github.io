@@ -1,38 +1,34 @@
 import { Checkbox, ListItemButton, ListItemIcon, ListItemText } from "@mui/material"
-import { ListInput } from "./ListInput"
 import { useTodoContext } from "./useContext/TodoContext"
 import { Draggable } from "react-beautiful-dnd"
 
 
 interface ListFieldProps {
   value: {id: number, text: string, checked: boolean },
-  checked: boolean,
-  labelId: string,
 }
 
 export const ListItem = ({ value }: ListFieldProps) => {
-  const { id, text, checked } = value;
   const { updateCheckBox } = useTodoContext();
 
   return (
-    <Draggable draggableId={`${id}`} index={id}>
+    <Draggable draggableId={`${value.id}`} index={value.id}>
       {(provided) => (
         <div
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <ListItemButton key={id} role="listitem">
+          <ListItemButton key={value.id} role="listitem">
             <ListItemIcon>
               <Checkbox
-                checked={checked}
+                checked={value.checked}
                 tabIndex={-1}
                 disableRipple
                 color="default"
-                onClick={() => updateCheckBox(id)}
+                onClick={() => updateCheckBox(value.id)}
               />
             </ListItemIcon>
-            <ListItemText id={`${id}`} primary={text} />
+            <ListItemText id={`${value.id}`} primary={value.text} />
           </ListItemButton>
         </div>
       )}
