@@ -1,5 +1,5 @@
 
-# Starting an TODO app 
+# Starting a TODO app 
 
 ## Prerequisites
 
@@ -34,7 +34,7 @@ If there is no version, follow this steps:
    Clone the existing React project repository to your local machine using Git. Navigate to the directory where you want to store the project and run the following command:
 
    ```bash
-      https://github.com/OlexandraKorol/OlexandraKorol.github.io.git
+      https://github.com/OlexandraKorol/TODO-App-Test-Task.git
    ```
 
 

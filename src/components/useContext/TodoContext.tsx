@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState, } from 'react';
 
 interface TodoContextType {
   updateToDo: (text: string, id: number) => void;
@@ -51,7 +51,6 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setListItems(filteredList);
     }, 700);
   };
-  
 
   return (
     <TodoContext.Provider value={{ 
@@ -64,7 +63,7 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
       setListItems,
       errors,
       setErrors,
-      }}
+    }}
     >
       {children}
     </TodoContext.Provider>
