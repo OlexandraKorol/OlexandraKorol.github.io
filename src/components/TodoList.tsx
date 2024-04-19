@@ -10,7 +10,7 @@ import { ListInput } from './ListInput';
 import { useTodoContext } from './useContext/TodoContext';
 
 import { ListItem } from './ListItem';
-import { log } from 'console';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
 interface ListItemProps {
    id: number; 
@@ -19,36 +19,56 @@ interface ListItemProps {
 }
 
 export const TodoList = () => {
-  const { updateCheckBox, listItems } = useTodoContext();
+  const { setListItems, listItems} = useTodoContext()
 
-  console.log({listItems})
-  const handleToggle = (value: number) => () => {
-    updateCheckBox(value)
+  const handleDragEnd = (result:any) => {
+    if (!result.destination) return;
+
+    const items = Array.from(listItems);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setListItems(items);
   };
 
-  const customList = (listItems: ListItemProps[]) => (
-    <Paper sx={{ width: 400, overflow: 'auto' }}>
-      <List component="div" role="list" >
-        {listItems.map((value: {id: number, text: string, checked: boolean }) => {
 
-          return (
-            <ListItem
-              value={value}
-              handleToggle={handleToggle}
-              checked={value.checked} 
-              labelId={`${value.id}`} 
-             />
-          );
-        })}
-      </List>
+  const firstId = listItems.length > 0 ? listItems[0].id : null;
+
+  const customList = (listItems: ListItemProps[]) => (
+    <Paper sx={{ width: 400, overflow: 'auto' }} key={`${firstId}`}>
+      <Droppable droppableId="ToDoId">
+        {(provided) => (
+          <div ref={provided.innerRef} 
+            {...provided.droppableProps}>
+            <List component="div" role="list">
+              {listItems.map((value: 
+                { id: number; 
+                  text: string; 
+                  checked: boolean 
+                }) => (
+                <ListItem 
+                  value={value} 
+                  checked={value.checked} 
+                  labelId={`${value.id}`} 
+                  />
+              ))}
+            </List>
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
     </Paper>
   );
 
   return (
+    <DragDropContext onDragEnd={handleDragEnd}>
       <Grid container justifyContent="center" alignItems="center">
-        {listItems.length !== 0 && ( <Grid item>{customList(listItems)}</Grid>)}
+        {listItems.length !== 0 && 
+        <Grid item>{customList(listItems)}</Grid>
+        }
       </Grid>
+    </DragDropContext>
   );
-}
+};
 
 

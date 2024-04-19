@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, ThemeProvider, createTheme } from "@mui/material";
 import styled from "@emotion/styled";
 import { useTodoContext } from "./useContext/TodoContext";
 import { SetStateAction } from "react";
@@ -10,18 +10,31 @@ export const StartField = () => {
     setUserText(e.target.value);
   };
 
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#616161', 
+      },
+    },
+  });
+
   return (
-    <Input>
-      <TextField
-        id="outlined-basic"
-        label="Outlined"
-        variant="filled"
-        sx={{ width: 400, overflow: 'auto'}}
-        color="primary"
-        value={userText} 
-        onChange={onChangeValue} 
-      />
-    </Input>
+    <ThemeProvider theme={theme}>
+      <Input>
+        <TextField
+          id="outlined-basic"
+          label="Enter task..."
+          variant="filled"
+          sx={{
+            width: 400,
+            overflow: 'auto',
+          }}
+          color="primary"
+          value={userText} 
+          onChange={onChangeValue} 
+        />
+      </Input>
+    </ThemeProvider>
   );
 };
 

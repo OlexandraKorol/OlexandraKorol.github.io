@@ -1,7 +1,7 @@
 import './App.css';
 import {TodoList} from './components/TodoList';
 import styled from '@emotion/styled';
-import { TodoProvider, } from './components/useContext/TodoContext';
+import { TodoProvider, useTodoContext, } from './components/useContext/TodoContext';
 import { AddToDoButton } from './components/AddToDoButton';
 import { StartField } from './components/StartField';
 

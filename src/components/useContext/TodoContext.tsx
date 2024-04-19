@@ -6,7 +6,12 @@ interface TodoContextType {
   setUserText: (value: React.SetStateAction<string>) => void;
   listItems: { id: number; text: string; checked: boolean }[];
   updateCheckBox: (id: number) => void;
-  createTodo: (text: string, id: number) => void
+  createTodo: (text: string, id: number) => void,
+  setListItems: (value: React.SetStateAction<{
+    id: number;
+    text: string;
+    checked: boolean;
+}[]>) => void
 }
 
 const TodoContext = createContext<TodoContextType | undefined>(undefined);
@@ -34,13 +39,19 @@ export const TodoProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const updateCheckBox = (id: number) => {
     const updatedList = listItems.map(item =>
-      item.id === id ? { ...item, checked: !item.checked } : item
+      item.id === id ? { ...item, checked: true } : item
     );
     setListItems(updatedList);
+  
+    setTimeout(() => {
+      const filteredList = listItems.filter(item => item.id !== id);
+      setListItems(filteredList);
+    }, 700);
   };
+  
 
   return (
-    <TodoContext.Provider value={{ updateToDo, userText, setUserText, listItems, updateCheckBox, createTodo }}>
+    <TodoContext.Provider value={{ updateToDo, userText, setUserText, listItems, updateCheckBox, createTodo, setListItems }}>
       {children}
     </TodoContext.Provider>
   );
